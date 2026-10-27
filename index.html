@@ -426,7 +426,7 @@ textarea.field { overflow: hidden; }
   }
 
   function missing() {
-    const need = { class: "분반", name: "이름", risk: "위험 수준", riskwhy: "위험 수준 이유" };
+    const need = { class: "분반", sid: "학번", name: "이름", risk: "위험 수준", riskwhy: "위험 수준 이유" };
     const d = collect(); const out = Object.keys(need).filter(k => !String(d[k] || "").trim()).map(k => need[k]);
     let n = 0; for (let i = 1; i <= 6; i++) if (String(d["r" + i + "c"] || "").trim()) n++;
     if (n < 5) out.push("규약 내용(" + n + "/5개)");
@@ -482,7 +482,7 @@ textarea.field { overflow: hidden; }
     try {
       const pdf = await makePdf();
       const d = collect();
-      const nm = [d.class, d.name].map(s => String(s || "").trim().replace(/[\\/:*?"<>|]/g, "")).filter(Boolean).join("_");
+      const nm = [d.class, d.sid, d.name].map(s => String(s || "").trim().replace(/[\\/:*?"<>|]/g, "")).filter(Boolean).join("_");
       const filename = (nm ? nm + "_" : "") + "인공지능윤리딜레마_2차시.pdf";
       const blob = pdf.output("blob");
       const dl = await dlReady;
